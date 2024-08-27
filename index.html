@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="d-flex flex-column gap-2 nt-2">
+            <input type="text" placeholder="username" id="usernameInput" class="fw-bold">
+            <input type="password" placeholder="pasword" id="passwordInput" class="fw-bold">
+            <button onclick="onLogin()" id="loginButton"
+                class="btn btn-warning text-uppercase fw-bold btn-lg nt-2">login</button>
+            <button onclick="onLogout()" id="logoutButton" class="btn btn-danger text-uppercase fw-bold btn-lg nt-2">logout</button>
+            <br>
+            <h1 id="admin" class="fw-bold">Waduh ada Admin 😱</h1>
+            <h1 id="NPC">Halo NPC bwahaha 😲</h1>
+        </div>
+    </div>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script type="application/javascript">
+        let usernameInput = document.getElementById('usernameInput');
+        let passwordInput = document.getElementById('passwordInput');
+        let loginButton = document.getElementById('loginButton');
+        let logoutButton = document.getElementById('logoutButton');
+        let admin = document.getElementById('admin');
+        let NPC = document.getElementById('NPC');
+
+        admin.style.display = "none";
+        NPC.style.display = "none";
+        logoutButton.style.display = "none";
+
+
+        function onLogin() {
+            console.log('tombol login diklik');
+            console.log(usernameInput.value);
+            console.log(passwordInput.value);
+            localStorage.setItem("username", usernameInput.value)
+            localStorage.setItem("password", passwordInput.value)
+            logoutButton.style.display = "block"
+
+
+            if (usernameInput.value == "Admin" && passwordInput.value == "Admin123") {
+                alert('Lari ada Admin');
+                localStorage.setItem("role", "Admin")
+                usernameInput.style.display = "none"
+                passwordInput.style.display = "none"
+                loginButton.style.display = "none"
+                admin.style.display = "block";
+                NPC.style.display = "none"
+            } else {
+                alert('haha anda adalah NPC');
+                localStorage.setItem("role", "NPC")
+                usernameInput.style.display = "none"
+                passwordInput.style.display = "none"
+                loginButton.style.display = "none"
+                NPC.style.display = "block"
+            }
+        }
+        if (localStorage.getItem('username')) {
+            usernameInput.style.display = "none"
+            passwordInput.style.display = "none"
+            loginButton.style.display = "none"
+            logoutButton.style.display = "block"
+            if (localStorage.getItem('role') == "admin") {
+                admin.style.display = "block";
+                NPC.style.display = "none"
+            } else {
+                NPC.style.display = "block"
+            }
+        }
+
+        function onLogout() {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+
+</body>
+
+</html>
